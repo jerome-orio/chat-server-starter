@@ -1,6 +1,12 @@
 name = "chat-server-starter"
 main = "src/index.ts"
-compatibility_date = "2023-05-18"
+compatibility_date = "2024-10-22"
 
 [build]
 command = "npm run build"
+
+[env.production]
+  MY_SECRET = "prod-secret-value"
+
+[env.dev]
+  MY_SECRET = "dev-secret-value"

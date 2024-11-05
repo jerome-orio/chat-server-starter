@@ -1,6 +1,6 @@
-# Real-Time Chat Application Server - Starter Project
+# Real-Time Chat Room Application Server - Starter Project
 
-This is the server-side application for a real-time chat system built with Express, Socket.IO, and deployable to Cloudflare Workers.
+This is the server-side application for a real-time chat room system built with Express, Socket.IO, and deployable to Cloudflare Workers.
 
 ## Features
 

@@ -1,31 +1,11 @@
-import { createServer } from 'http'
-import { Server } from 'socket.io'
-import express from 'express'
-
-const app = express()
-const server = createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
-})
-
-io.on('connection', (socket) => {
-  console.log('A user connected')
-
-  socket.on('send-message', (msg) => {
-    io.emit('receive-message', msg)
-  })
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected')
-  })
-})
-
-app.get('/', (req, res) => {
-  res.send('WebSocket server is running')
-})
+import {
+  handleUserConnection,
+  handleUserDisconnection,
+  handleMessage,
+  handleTypingStart,
+  handleTypingStop,
+  broadcastOnlineUsers,
+} from './Chat';
 
 export interface Env {
   MY_SECRET: string;
@@ -39,13 +19,37 @@ export default {
 
       server.accept();
 
+      const decoder = new TextDecoder();
+
       server.addEventListener('message', (event) => {
-        // Broadcast the received message back to all connected clients
-        server.send(`Echo: ${event.data}`);
+        let data: any;
+
+        if (event.data instanceof ArrayBuffer) {
+          data = JSON.parse(decoder.decode(event.data));
+        } else if (typeof event.data === 'string') {
+          data = JSON.parse(event.data);
+        }
+
+        // Handle incoming messages
+        if (data.type === 'user-joined') {
+          handleUserConnection(data, server, data.username);
+        }
+
+        if (data.type === 'send-message') {
+          handleMessage(data, server);
+        }
+
+        if (data.type === 'typing-start') {
+          handleTypingStart(data.username, server);
+        }
+
+        if (data.type === 'typing-stop') {
+          handleTypingStop(data.username, server);
+        }
       });
 
-      server.addEventListener('close', () => {
-        console.log('WebSocket connection closed');
+      server.addEventListener('close', (event) => {
+        handleUserDisconnection(event, server);
       });
 
       return new Response(null, {
@@ -54,6 +58,6 @@ export default {
       });
     }
 
-    return new Response('WebSocket server is running', { status: 200 })
+    return new Response('WebSocket server is running', { status: 200 });
   },
-}
+};

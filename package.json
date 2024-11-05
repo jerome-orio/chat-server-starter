@@ -14,9 +14,11 @@
   "description": "",
   "dependencies": {
     "@cloudflare/workers-types": "^4.20241022.0",
+    "@types/socket.io": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "uuid": "^11.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
