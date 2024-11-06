@@ -1,12 +1,11 @@
 # Real-Time Chat Room Application Server - Starter Project
 
-This is the server-side application for a real-time chat room system built with Express, Socket.IO, and deployable to Cloudflare Workers.
+This is the server-side application for a real-time chat room system built with Express, Socket.IO.
 
 ## Features
 
 - Real-time WebSocket communication
 - Express server for local development
-- Cloudflare Workers compatible for deployment
 - Easy integration with the chat client
 
 ## Prerequisites
@@ -15,7 +14,6 @@ Before you begin, ensure you have met the following requirements:
 
 - Node.js (v14.0.0 or later)
 - npm (v6.0.0 or later)
-- Wrangler CLI (for Cloudflare Workers deployment)
 
 ## Installation
 

@@ -24,7 +24,6 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2",
-    "wrangler": "^3.84.1"
+    "ts-node": "^10.9.2"
   }
 }
